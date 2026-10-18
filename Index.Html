@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0b10">
+<title>VYRO STUDIO | Account</title>
+<style>
+:root{--bg:#0b0b10;--panel:#13131b;--line:#292936;--text:#f5f4fa;--muted:#9695a7;--purple:#9877ff}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 80% 0%,#37265b66,transparent 40%),var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif;min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer}
+a{color:#c1afff}
+.layout{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;max-width:1450px;margin:auto}
+.left{padding:30px clamp(20px,5vw,75px);display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:3px}
+.logo{width:39px;height:39px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(140deg,#bca7ff,#7049e7);font-size:22px;box-shadow:0 8px 35px #8059ff33}
+.brand span:last-child span{color:#aa91ff}
+.formbox{width:100%;max-width:410px;margin:auto;padding:50px 0}
+.kicker{font-size:11px;letter-spacing:3px;color:#b7a1ff;font-weight:800}
+h1{font-size:clamp(32px,4vw,45px);letter-spacing:-2px;line-height:1.1;margin:13px 0}
+.sub{font-size:14px;line-height:1.7;color:var(--muted);margin-bottom:28px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:#181821;padding:5px;border:1px solid var(--line);border-radius:12px;margin-bottom:24px}
+.tab{padding:11px;border:0;border-radius:8px;background:none;color:var(--muted);font-weight:700}
+.tab.active{background:#302747;color:white}
+.field{margin-bottom:17px}
+label{display:block;font-size:12px;font-weight:700;margin-bottom:8px;color:#dedce9}
+input{width:100%;padding:14px;border-radius:10px;border:1px solid #343440;background:#101016;color:white;outline:none}
+input:focus{border-color:var(--purple);box-shadow:0 0 0 3px #9877ff20}
+input::placeholder{color:#676676}
+.passwrap{position:relative}
+.passwrap input{padding-right:70px}
+.showpass{position:absolute;right:9px;top:9px;border:0;background:none;color:#b9a8ff;padding:6px;font-size:12px}
+.options{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin:5px 0 21px}
+.remember{display:flex;align-items:center;gap:7px;font-weight:400;margin:0}
+.remember input{width:14px;height:14px;accent-color:var(--purple)}
+.linkbtn{border:0;background:none;color:#c3b3ff;font-size:12px;padding:0}
+.primary{width:100%;padding:14px;border:0;border-radius:10px;background:linear-gradient(100deg,#a38aff,#7752eb);color:white;font-weight:800;box-shadow:0 8px 30px #8b68ff24}
+.primary:disabled{opacity:.55}
+.message{display:none;margin-top:15px;padding:13px;border:1px solid var(--line);border-radius:10px;font-size:12px;line-height:1.65;overflow-wrap:anywhere;background:#181821}
+.message.show{display:block}
+.message.good{border-color:#285940;color:#b5f1cd;background:#112018}
+.message.bad{border-color:#66333d;color:#ffc2c9;background:#241319}
+.small{font-size:11px;color:#777687;line-height:1.7;text-align:center;margin-top:22px}
+footer{display:flex;justify-content:space-between;color:#6e6c7b;font-size:11px;padding-top:20px}
+.right{padding:24px 24px 24px 0}
+.showcase{height:100%;min-height:680px;border:1px solid #30283e;border-radius:22px;background:linear-gradient(145deg,#20182e,#101015 60%,#20172f);padding:clamp(22px,4vw,45px);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
+.showcase:before{content:"";position:absolute;width:400px;height:400px;right:-150px;top:70px;border-radius:50%;background:#9877ff1b;filter:blur(35px)}
+.showcase>*{position:relative}
+.tag{font-size:10px;letter-spacing:3px;color:#b6a2ff;font-weight:800}
+.showcase h2{font-size:clamp(35px,4vw,54px);letter-spacing:-3px;line-height:1.02;margin:20px 0}
+.showcase p{color:#aaa5b9;font-size:13px;line-height:1.8;max-width:350px}
+.preview{border:1px solid #393146;background:#0c0c12;border-radius:15px;padding:14px;box-shadow:0 25px 80px #0007;margin:30px 0}
+.previewtop{display:flex;justify-content:space-between;font-size:10px;color:#aaa2bd}
+.screen{height:190px;border-radius:8px;margin:14px 0;background:radial-gradient(ellipse at center,#7954bd77,transparent 60%),linear-gradient(140deg,#2e2445,#151b2b,#382548);display:grid;place-items:center}
+.play{width:43px;height:43px;border-radius:50%;border:1px solid #ffffff55;background:#ffffff20;display:grid;place-items:center}
+.play:after{content:"";border-left:10px solid white;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:3px}
+.track{height:18px;border-radius:4px;background:#211d2b;margin-top:7px;padding:3px;display:flex;gap:4px}
+.clip{height:100%;width:26%;border-radius:3px;background:linear-gradient(90deg,#7957d5,#b39aff)}
+.clip:nth-child(2){width:19%;background:linear-gradient(90deg,#8858bd,#c58acb)}
+.clip:nth-child(3){width:32%;background:linear-gradient(90deg,#555eb6,#a48bff)}
+.audio .clip{width:72%;background:linear-gradient(90deg,#398f79,#79d8ad)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pill{border:1px solid #41364f;padding:7px 10px;border-radius:50px;font-size:10px;color:#c9c0d9}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.left{padding:23px 22px 18px}.formbox{margin:38px auto;padding:5px 0 35px}.right{padding:0 15px 18px}.showcase{min-height:530px;padding:23px}.showcase h2{font-size:38px}.screen{height:145px}}
+@media(max-width:390px){.left{padding-left:16px;padding-right:16px}.right{padding-left:10px;padding-right:10px}.options{font-size:11px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<main class="left">
+<a class="brand" href="#" style="color:inherit;text-decoration:none">
+<div class="logo">V</div>
+<div>VYRO <span>STUDIO</span></div>
+</a>
+
+<section class="formbox">
+<div class="kicker">YOUR CREATIVE WORKSPACE</div>
+<h1 id="heading">Welcome back.</h1>
+<p class="sub" id="subtitle">Sign in to continue to your editing workspace.</p>
+
+<div class="tabs">
+<button class="tab active" id="loginTab" type="button">Log in</button>
+<button class="tab" id="signupTab" type="button">Create account</button>
+</div>
+
+<form id="form">
+<div class="field" id="usernameField" hidden>
+<label for="username">Username</label>
+<input id="username" autocomplete="nickname" placeholder="Choose a username">
+</div>
+
+<div class="field">
+<label for="email">Email address</label>
+<input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+</div>
+
+<div class="field">
+<label for="password">Password</label>
+<div class="passwrap">
+<input id="password" type="password" autocomplete="current-password" minlength="8" placeholder="At least 8 characters" required>
+<button class="showpass" id="showpass" type="button">Show</button>
+</div>
+</div>
+
+<div class="options" id="options">
+<label class="remember"><input type="checkbox" checked> Keep me signed in</label>
+<button class="linkbtn" id="forgot" type="button">Forgot password?</button>
+</div>
+
+<button class="primary" id="submit" type="submit">Log in to VYRO</button>
+<div class="message" id="message" role="status" aria-live="polite"></div>
+</form>
+
+<p class="small">Your creative workspace, in one place.<br>Never share your password with anyone.</p>
+</section>
+
+<footer><span>© 2026 VYRO STUDIO</span><span>Cut. Color. Create.</span></footer>
+</main>
+
+<aside class="right">
+<div class="showcase">
+<div>
+<div class="tag">VYRO STUDIO / EDITOR</div>
+<h2>Make every<br>frame count.</h2>
+<p>A focused video editing workspace for your clips, sound, and stories.</p>
+<div class="pills"><span class="pill">Multitrack timeline</span><span class="pill">Transitions</span><span class="pill">Video export</span></div>
+</div>
+<div class="preview">
+<div class="previewtop"><span>UNTITLED PROJECT</span><span>00:00:12:08</span></div>
+<div class="screen"><div class="play"></div></div>
+<div class="track"><span class="clip"></span><span class="clip"></span><span class="clip"></span></div>
+<div class="track"><span class="clip" style="width:45%"></span><span class="clip" style="width:25%"></span></div>
+<div class="track audio"><span class="clip"></span></div>
+</div>
+<div><div class="tag">CUT. COLOR. CREATE.</div><p>Your next project starts here.</p></div>
+</div>
+</aside>
+</div>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+/* SETUP:
+   Replace both values with your Supabase Project URL and publishable/anon key.
+   Never use a service_role key in this file.
+*/
+const SUPABASE_URL = 'PASTE_PROJECT_URL_HERE';
+const SUPABASE_KEY = 'PASTE_PUBLISHABLE_OR_ANON_KEY_HERE';
+
+const configured =
+  SUPABASE_URL.startsWith('https://') &&
+  !SUPABASE_URL.includes('PASTE_') &&
+  SUPABASE_KEY.length > 20 &&
+  !SUPABASE_KEY.includes('PASTE_');
+
+const supabase = configured
+  ? createClient(SUPABASE_URL, SUPABASE_KEY)
+  : null;
+
+const $ = id => document.getElementById(id);
+let mode = 'login';
+
+function message(text, type='') {
+  $('message').textContent = text;
+  $('message').className = 'message show ' + type;
+}
+
+function clearMessage() {
+  $('message').textContent = '';
+  $('message').className = 'message';
+}
+
+function setMode(next) {
+  mode = next;
+  const signup = mode === 'signup';
+
+  $('loginTab').classList.toggle('active', !signup);
+  $('signupTab').classList.toggle('active', signup);
+  $('heading').textContent = signup ? 'Create your account.' : 'Welcome back.';
+  $('subtitle').textContent = signup
+    ? 'Create your free VYRO STUDIO account.'
+    : 'Sign in to continue to your editing workspace.';
+  $('usernameField').hidden = !signup;
+  $('username').required = signup;
+  $('options').hidden = signup;
+  $('submit').textContent = signup ? 'Create free account' : 'Log in to VYRO';
+  $('password').autocomplete = signup ? 'new-password' : 'current-password';
+  clearMessage();
+}
+
+$('loginTab').onclick = () => setMode('login');
+$('signupTab').onclick = () => setMode('signup');
+
+$('showpass').onclick = () => {
+  const input = $('password');
+  input.type = input.type === 'password' ? 'text' : 'password';
+  $('showpass').textContent = input.type === 'password' ? 'Show' : 'Hide';
+};
+
+$('forgot').onclick = async () => {
+  clearMessage();
+  const email = $('email').value.trim();
+
+  if (!email) {
+    message('Enter your email address first.', 'bad');
+    return;
+  }
+
+  if (!supabase) {
+    message('Setup required: add your Supabase URL and key in this script first.', 'bad');
+    return;
+  }
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: location.href.split('#')[0]
+  });
+
+  if (error) message(error.message, 'bad');
+  else message('If the account exists, a password reset email is on its way. Check your inbox and spam folder.', 'good');
+};
+
+$('form').onsubmit = async event => {
+  event.preventDefault();
+  clearMessage();
+
+  if (!supabase) {
+    message('Supabase is not connected yet. Add your Project URL and publishable/anon key to activate real accounts.', 'bad');
+    return;
+  }
+
+  const email = $('email').value.trim();
+  const password = $('password').value;
+
+  if (password.length < 8) {
+    message('Your password must contain at least 8 characters.', 'bad');
+    return;
+  }
+
+  $('submit').disabled = true;
+  $('submit').textContent = 'Please wait…';
+
+  try {
+    if (mode === 'signup') {
+      const username = $('username').value.trim();
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { username },
+          emailRedirectTo: location.href.split('#')[0]
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.session) {
+        message('Account created. Email confirmation might be disabled in your Supabase settings.', 'good');
+      } else {
+        message('Account created. Check your email for the verification link, then return here to log in.', 'good');
+      }
+    } else {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      message('You are signed in successfully. The editing workspace needs to be connected as the next step.', 'good');
+    }
+  } catch (error) {
+    message(error.message || 'Something went wrong. Please try again.', 'bad');
+  } finally {
+    $('submit').disabled = false;
+    $('submit').textContent = mode === 'signup' ? 'Create free account' : 'Log in to VYRO';
+  }
+};
+
+if (location.hash.includes('error=')) {
+  message('This email link is invalid or expired. Request a new link and try again.', 'bad');
+}
+</script>
+</body>
+</html>
